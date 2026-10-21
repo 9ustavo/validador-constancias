@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Validación Turnitin 2026 - IPN</title>
+  <title>Validación UNIR 2026 - IPN</title>
   <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
     body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
@@ -35,7 +35,7 @@
 
   <script>
     // ==========================================
-    // BASE DE DATOS UNIFICADA TURNITIN 2026
+    // BASE DE DATOS UNIFICADA UNIR 2026
     // ==========================================
     const baseDatos = {
       // AQUÍ PEGAS LAS LÍNEAS QUE GENERASTE CON LA FÓRMULA DE EXCEL:
@@ -484,16 +484,10 @@
     } else {
       contenedor.innerHTML = `
         <div class="badge badge-invalid">✕ DOCUMENTO NO ENCONTRADO</div>
-        <p style="color: #666; margin-top: 15px;">El folio <strong>${folioIngresado || 'no proporcionado'}</strong> no se encuentra registrado en el padrón oficial del evento Turnitin 2026.</p>
+        <p style="color: #666; margin-top: 15px;">El folio <strong>${folioIngresado || 'no proporcionado'}</strong> no se encuentra registrado en el padrón oficial del evento UNIR 2026.</p>
       `;
     }
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
