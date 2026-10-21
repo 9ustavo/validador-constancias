@@ -447,7 +447,50 @@
 "JORNADAS-IPN-UNIR-406": { nombre: "Matilde Celina Ávila Medina", tipo: "Asistencia a Evento de divulgación Cientifica", evento: "Jornadas de Inteligencia Artificial IPN-UNIR", fecha: "23 de septiembre de 2026" },
 "JORNADAS-IPN-UNIR-407": { nombre: "Gabriel Arellano Millán", tipo: "Asistencia a Evento de divulgación Cientifica", evento: "Jornadas de Inteligencia Artificial IPN-UNIR", fecha: "23 de septiembre de 2026" },
 "JORNADAS-IPN-UNIR-408": { nombre: "Aarón Ortiz Mendoza", tipo: "Asistencia a Evento de divulgación Cientifica", evento: "Jornadas de Inteligencia Artificial IPN-UNIR", fecha: "23 de septiembre de 2026" },
+ };
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const folioIngresado = urlParams.get('folio');
+    const contenedor = document.getElementById('contenido');
+
+    if (folioIngresado && baseDatos[folioIngresado]) {
+      const registro = baseDatos[folioIngresado];
+
+      // Estandarización automática de nombres
+      let nombresFormateados = registro.nombre
+        .replace(/[\r\n]+/g, '; ')
+        .replace(/\s*;\s*/g, '; ')
+        .replace(/\s+y\s+/gi, '; ')
+        .replace(/\s+e\s+/gi, '; ')
+        .replace(/,\s*/g, '; ')
+        .replace(/;\s*;\s*/g, '; ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      contenedor.innerHTML = `
+        <div class="badge badge-valid">✓ CONSTANCIA OFICIAL VÁLIDA</div>
+        <h2>${nombresFormateados}</h2>
+        <div class="data-group">
+          <div class="label">Folio de Registro</div>
+          <div class="value">${folioIngresado}</div>
+          <div class="label">Tipo de Constancia</div>
+          <div class="value" style="color: #6c1d45;">${registro.tipo}</div>
+          <div class="label">Evento</div>
+          <div class="value">${registro.evento}</div>
+          <div class="label">Fecha del Evento</div>
+          <div class="value">${registro.fecha}</div>
+        </div>
+      `;
+    } else {
+      contenedor.innerHTML = `
+        <div class="badge badge-invalid">✕ DOCUMENTO NO ENCONTRADO</div>
+        <p style="color: #666; margin-top: 15px;">El folio <strong>${folioIngresado || 'no proporcionado'}</strong> no se encuentra registrado en el padrón oficial del evento Turnitin 2026.</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
 
 
 
