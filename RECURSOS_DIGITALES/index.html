@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validación CLARIVATE 2026 - IPN</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+    body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+    .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 480px; width: 100%; text-align: center; border-top: 6px solid #6c1d45; }
+    .header { font-size: 0.85em; font-weight: bold; color: #6c1d45; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; }
+    .badge { display: inline-block; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9em; margin-bottom: 15px; }
+    .badge-valid { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+    .badge-invalid { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+    h2 { color: #222; margin: 10px 0 20px 0; font-size: 1.1em; line-height: 1.4; }
+    .data-group { text-align: left; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
+    .label { font-size: 0.75em; color: #777; text-transform: uppercase; font-weight: bold; margin-top: 10px; }
+    .label:first-child { margin-top: 0; }
+    .value { font-size: 0.95em; color: #222; font-weight: 600; margin-bottom: 5px; }
+    .footer { margin-top: 25px; font-size: 0.8em; color: #888; }
+  </style>
+</head>
+<body>
 
+  <div class="card">
+    <div class="header">
+      INSTITUTO POLITÉCNICO NACIONAL<br>
+      DIRECCIÓN DE INVESTIGACIÓN
+    </div>
+
+    <div id="contenido"></div>
+
+    <div class="footer">Sistema Oficial de Verificación de Documentos</div>
+  </div>
+
+  <script>
+    // ==========================================
+    // BASE DE DATOS UNIFICADA TURNITIN 2026
+    // ==========================================
+    const baseDatos = {
+      // TURNITIN-OTS-2026:
+""Accepted": { nombre: "Enrique Hernández Godoy", tipo: "Asistencia a Conferencia Nacional", evento: "Sesión de Orientación: La IA de Web of Science para la gestión de proyectos de investigación", fecha: "23 de septiembre de 2026" },
+
+
+      };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const folioIngresado = urlParams.get('folio');
+    const contenedor = document.getElementById('contenido');
+
+    if (folioIngresado && baseDatos[folioIngresado]) {
+      const registro = baseDatos[folioIngresado];
+
+      // Estandarización automática de nombres
+      let nombresFormateados = registro.nombre
+        .replace(/[\r\n]+/g, '; ')
+        .replace(/\s*;\s*/g, '; ')
+        .replace(/\s+y\s+/gi, '; ')
+        .replace(/\s+e\s+/gi, '; ')
+        .replace(/,\s*/g, '; ')
+        .replace(/;\s*;\s*/g, '; ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      contenedor.innerHTML = `
+        <div class="badge badge-valid">✓ CONSTANCIA OFICIAL VÁLIDA</div>
+        <h2>${nombresFormateados}</h2>
+        <div class="data-group">
+          <div class="label">Folio de Registro</div>
+          <div class="value">${folioIngresado}</div>
+          <div class="label">Tipo de Constancia</div>
+          <div class="value" style="color: #6c1d45;">${registro.tipo}</div>
+          <div class="label">Evento</div>
+          <div class="value">${registro.evento}</div>
+          <div class="label">Fecha del Evento</div>
+          <div class="value">${registro.fecha}</div>
+        </div>
+      `;
+    } else {
+      contenedor.innerHTML = `
+        <div class="badge badge-invalid">✕ DOCUMENTO NO ENCONTRADO</div>
+        <p style="color: #666; margin-top: 15px;">El folio <strong>${folioIngresado || 'no proporcionado'}</strong> no se encuentra registrado en el padrón oficial del evento Turnitin 2026.</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
+
+      
